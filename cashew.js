@@ -4,7 +4,7 @@
 (function ($) {
     'use strict';
     var cache = {},
-        JQueryInit = jQuery.fn.init,
+        JQueryInit = $.fn.init,
         selectFromDOM = function (selector, context, rootjQuery) {
         
             context = context || window.document;
@@ -14,9 +14,8 @@
             return result;
         };
 
-    jQuery.fn.init = function (selector, context, rootjQuery) {
+    $.fn.init = function (selector, context, rootjQuery) {
 
-        
         var result;
         
         if (selector !== undefined && typeof (selector) === 'string') {
