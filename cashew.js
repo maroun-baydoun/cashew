@@ -22,7 +22,9 @@
 
             if (!cache.hasOwnProperty(selector)) {
                 result = selectFromDOM(selector, context, rootjQuery);
-                cache[selector] = result;
+                if(result.length){
+                    cache[selector] = result;
+                }
 
             } else if (cache.hasOwnProperty(selector)) {
                 result = cache[selector];
