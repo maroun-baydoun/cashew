@@ -12,12 +12,12 @@
         var result;
         if (selector !== undefined && typeof (selector) === 'string') {
 
-            if (!cache.hasOwnProperty(String(selector))) {
+            if (!cache.hasOwnProperty(selector)) {
                 result = new JQueryInit(selector, context, rootjQuery);
-                cache[String(selector)] = result;
+                cache[selector] = result;
 
-            } else if (cache.hasOwnProperty(String(selector))) {
-                result = cache[String(selector)];
+            } else if (cache.hasOwnProperty(selector)) {
+                result = cache[selector];
             }
 
         } else {
@@ -33,7 +33,7 @@
             context  = this.context,
             result = new JQueryInit(selector, context);
         
-        cache[String(selector)] = result;
+        cache[selector] = result;
         
         return result;
     };
