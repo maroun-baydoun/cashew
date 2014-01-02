@@ -47,7 +47,7 @@
             
             return result;
         },
-        delete : function (selector) {
+        clear : function (selector) {
             delete cache[selector];
         }
         
