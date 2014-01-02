@@ -18,6 +18,6 @@ var items = $("ul>li.member"); //Selects ul>li.member elements and caches the re
 
 /*The DOM is modified; elements are added or removed*/
     
-items = $("ul>li.member").refresh(); //Updates the cache and returns the new elements
+items = $.cashew.refresh("ul>li.member"); //Updates the cache and returns the new elements
     
 ```
