@@ -4,22 +4,19 @@
 (function ($) {
     'use strict';
     var cache = {},
-        JQueryInit = $.fn.init,
+        jQueryInit = $.fn.init,
         selectFromDOM = function (selector, context, rootjQuery) {
-        
             context = context || window.document;
         
-            var result = new JQueryInit(selector, context, rootjQuery);
+            var result = new jQueryInit(selector, context, rootjQuery);
         
             return result;
-        };
-
-    $.fn.init = function (selector, context, rootjQuery) {
-
+        },
+        jQueryInitOverride= function (selector, context, rootjQuery) {
+            
         var result;
         
         if (selector !== undefined && typeof (selector) === 'string') {
-
             if (!cache.hasOwnProperty(selector)) {
                 result = selectFromDOM(selector, context, rootjQuery);
                 if(result.length){
@@ -38,14 +35,21 @@
 
     };
     
-    $.fn.refresh = function () {
-        var selector = this.selector,
-            context  = this.context,
-            result = selectFromDOM(selector, context);
+    
+    $.cashew={
+        refresh:function(selector, context){
+            $.fn.init=jQueryInit;
+            
+            var result = selectFromDOM(selector, context);
+            cache[selector] = result;
+            
+            $.fn.init=jQueryInitOverride;
+            
+            return result;
+        }
         
-        cache[selector] = result;
-        
-        return result;
     };
+    
+    $.fn.init=jQueryInitOverride;
     
 }(jQuery));
