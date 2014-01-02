@@ -12,47 +12,47 @@
         
             return result;
         },
-        jQueryInitOverride= function (selector, context, rootjQuery) {
+        jQueryInitOverride = function (selector, context, rootjQuery) {
             
-        var result;
-        
-        if (selector !== undefined && typeof (selector) === 'string') {
-            if (!cache.hasOwnProperty(selector)) {
-                result = selectFromDOM(selector, context, rootjQuery);
-                if(result.length){
-                    cache[selector] = result;
+            var result;
+            
+            if (selector !== undefined && typeof (selector) === 'string') {
+                if (!cache.hasOwnProperty(selector)) {
+                    result = selectFromDOM(selector, context, rootjQuery);
+                    if (result.length) {
+                        cache[selector] = result;
+                    }
+    
+                } else if (cache.hasOwnProperty(selector)) {
+                    result = cache[selector];
                 }
-
-            } else if (cache.hasOwnProperty(selector)) {
-                result = cache[selector];
+    
+            } else {
+                result = selectFromDOM(selector, context, rootjQuery);
             }
+            
+            return result;
 
-        } else {
-            result = selectFromDOM(selector, context, rootjQuery);
-        }
-        
-        return result;
-
-    };
+        };
     
     
-    $.cashew={
-        refresh:function(selector, context){
-            $.fn.init=jQueryInit;
+    $.cashew = {
+        refresh: function (selector, context) {
+            $.fn.init = jQueryInit;
             
             var result = selectFromDOM(selector, context);
             cache[selector] = result;
             
-            $.fn.init=jQueryInitOverride;
+            $.fn.init = jQueryInitOverride;
             
             return result;
         },
-        delete:function(selector){
+        delete : function (selector) {
             delete cache[selector];
         }
         
     };
     
-    $.fn.init=jQueryInitOverride;
+    $.fn.init = jQueryInitOverride;
     
 }(jQuery));
