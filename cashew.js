@@ -3,39 +3,56 @@
 
 (function ($) {
     'use strict';
-    var cache = {}, JQueryInit = jQuery.fn.init;
-
-    jQuery.fn.init = function (selector, context, rootjQuery) {
-
-        context = context || window.document;
+    var cache = {},
+        jQueryInit = $.fn.init,
+        selectFromDOM = function (selector, context, rootjQuery) {
+            context = context || window.document;
         
-        var result;
-        if (selector !== undefined && typeof (selector) === 'string') {
-
-            if (!cache.hasOwnProperty(String(selector))) {
-                result = new JQueryInit(selector, context, rootjQuery);
-                cache[String(selector)] = result;
-
-            } else if (cache.hasOwnProperty(String(selector))) {
-                result = cache[String(selector)];
+            var result = new jQueryInit(selector, context, rootjQuery);
+        
+            return result;
+        },
+        jQueryInitOverride = function (selector, context, rootjQuery) {
+            
+            var result;
+            
+            if (selector !== undefined && typeof (selector) === 'string') {
+                if (!cache.hasOwnProperty(selector)) {
+                    result = selectFromDOM(selector, context, rootjQuery);
+                    if (result.length) {
+                        cache[selector] = result;
+                    }
+    
+                } else if (cache.hasOwnProperty(selector)) {
+                    result = cache[selector];
+                }
+    
+            } else {
+                result = selectFromDOM(selector, context, rootjQuery);
             }
+            
+            return result;
 
-        } else {
-            result = new JQueryInit(selector, context, rootjQuery);
+        };
+    
+    
+    $.cashew = {
+        refresh: function (selector, context) {
+            $.fn.init = jQueryInit;
+            
+            var result = selectFromDOM(selector, context);
+            cache[selector] = result;
+            
+            $.fn.init = jQueryInitOverride;
+            
+            return result;
+        },
+        clear : function (selector) {
+            delete cache[selector];
         }
         
-        return result;
-
     };
     
-    $.fn.refresh = function () {
-        var selector = this.selector,
-            context  = this.context,
-            result = new JQueryInit(selector, context);
-        
-        cache[String(selector)] = result;
-        
-        return result;
-    };
+    $.fn.init = jQueryInitOverride;
     
 }(jQuery));
