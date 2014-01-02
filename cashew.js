@@ -46,6 +46,9 @@
             $.fn.init=jQueryInitOverride;
             
             return result;
+        },
+        delete:function(selector){
+            delete cache[selector];
         }
         
     };
