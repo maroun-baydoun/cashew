@@ -48,7 +48,11 @@
             return result;
         },
         clear : function (selector) {
-            delete cache[selector];
+            if (selector) {
+                delete cache[selector];
+            } else {
+                cache = {};
+            }
         }
         
     };
