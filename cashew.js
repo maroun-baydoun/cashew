@@ -57,6 +57,21 @@
         
     };
     
+    $.fn.refresh = function () {
+       
+        $.fn.init = jQueryInit;
+       
+        var selector = this.selector,
+            context  = this.context,
+            result = selectFromDOM(selector, context);
+        
+        cache[selector] = result;
+            
+        $.fn.init = jQueryInitOverride;
+            
+        return result;
+    };
+    
     $.fn.init = jQueryInitOverride;
     
 }(jQuery));
