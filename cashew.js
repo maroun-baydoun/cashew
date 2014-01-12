@@ -53,6 +53,9 @@
             } else {
                 cache = {};
             }
+        },
+        pause : function () {
+            $.fn.init = jQueryInit;
         }
         
     };
