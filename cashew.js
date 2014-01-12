@@ -71,6 +71,6 @@
             
     };
     
-    $.fn.init = jQueryInitOverride;
+    $.cashew.resume();
     
 }(jQuery));
