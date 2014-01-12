@@ -58,18 +58,11 @@
     };
     
     $.fn.refresh = function () {
-       
-        $.fn.init = jQueryInit;
-       
         var selector = this.selector,
-            context  = this.context,
-            result = selectFromDOM(selector, context);
+            context  = this.context;
         
-        cache[selector] = result;
+        return $.cashew.refresh(selector, context);
             
-        $.fn.init = jQueryInitOverride;
-            
-        return result;
     };
     
     $.fn.init = jQueryInitOverride;
