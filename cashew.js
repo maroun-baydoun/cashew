@@ -56,6 +56,9 @@
         },
         pause : function () {
             $.fn.init = jQueryInit;
+        },
+        resume: function () {
+            $.fn.init = jQueryInitOverride;
         }
         
     };
