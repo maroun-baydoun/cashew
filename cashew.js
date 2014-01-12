@@ -38,12 +38,12 @@
     
     $.cashew = {
         refresh: function (selector, context) {
-            $.fn.init = jQueryInit;
+            $.cashew.pause();
             
             var result = selectFromDOM(selector, context);
             cache[selector] = result;
             
-            $.fn.init = jQueryInitOverride;
+            $.cashew.resume();
             
             return result;
         },
